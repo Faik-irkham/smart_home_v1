@@ -1,5 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:smart_home/shared/theme.dart';
+import 'package:smart_home/widgets/device_container.dart';
+import 'package:smart_home/widgets/slider_container.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,6 +17,18 @@ class _HomePageState extends State<HomePage> {
   bool isPurifierOn = false;
   double mainLightValue = 65;
   double floorLampValue = 45;
+  double opacity = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    Timer(const Duration(milliseconds: 200), () {
+      setState(() {
+        opacity = 1.0;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,266 +46,84 @@ class _HomePageState extends State<HomePage> {
             right: 0,
             left: 0,
             bottom: 0,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(20),
-                        height: MediaQuery.of(context).size.height / 4.5,
-                        width: MediaQuery.of(context).size.width / 2.2,
-                        decoration: BoxDecoration(
-                          color: const Color(0XFF282424),
-                          borderRadius: BorderRadius.circular(24),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      '36%',
-                                      style: primaryTextStyle.copyWith(
-                                        fontSize: 32,
-                                        fontWeight: medium,
-                                      ),
-                                    ),
-                                    Image.asset(
-                                      'assets/humidity.png',
-                                      width: 24,
-                                      height: 24,
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  'Humidifier \nAir',
-                                  style: primaryTextStyle,
-                                ),
-                              ],
-                            ),
-                            const Divider(
-                              color: Color(0XFF393535),
-                              height: 1,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Mode 2',
-                                  style: primaryTextStyle,
-                                ),
-                                Switch(
-                                  value: isHumidifierOn,
-                                  activeColor: const Color(0XFF282424),
-                                  activeTrackColor: const Color(0XFFFFB267),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      isHumidifierOn = value;
-                                    });
-                                  },
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(20),
-                        height: MediaQuery.of(context).size.height / 4.5,
-                        width: MediaQuery.of(context).size.width / 2.2,
-                        decoration: BoxDecoration(
-                          color: const Color(0XFF282424),
-                          borderRadius: BorderRadius.circular(24),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      '73%',
-                                      style: primaryTextStyle.copyWith(
-                                        fontSize: 32,
-                                        fontWeight: medium,
-                                      ),
-                                    ),
-                                    Image.asset(
-                                      'assets/clean.png',
-                                      width: 24,
-                                      height: 24,
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  'Purifier\nAir',
-                                  style: primaryTextStyle,
-                                ),
-                              ],
-                            ),
-                            const Divider(
-                              color: Color(0XFF393535),
-                              height: 1,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'On',
-                                  style: primaryTextStyle,
-                                ),
-                                Switch(
-                                  value: isPurifierOn,
-                                  activeColor: const Color(0XFF282424),
-                                  activeTrackColor: const Color(0XFFFFB267),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      isPurifierOn = value;
-                                    });
-                                  },
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 12),
-                  Container(
-                    padding: const EdgeInsets.only(
-                      top: 20,
-                      right: 20,
-                      left: 20,
-                    ),
-                    height: MediaQuery.of(context).size.height / 5,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      color: const Color(0XFF282424),
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                    child: Column(
+            child: AnimatedOpacity(
+              opacity: opacity,
+              duration: const Duration(seconds: 1),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Main light',
-                              style: primaryTextStyle,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: SliderTheme(
-                                    data: SliderTheme.of(context).copyWith(
-                                      trackHeight: 6,
-                                      activeTrackColor: const Color(0XFFFFB267),
-                                      thumbShape: const RoundSliderThumbShape(
-                                        enabledThumbRadius: 15,
-                                      ),
-                                      overlayShape:
-                                          const RoundSliderOverlayShape(
-                                        overlayRadius: 31,
-                                      ),
-                                      inactiveTrackColor:
-                                          const Color(0XFF393637),
-                                      overlayColor: const Color.fromRGBO(
-                                          107, 104, 105, 20),
-                                    ),
-                                    child: Slider(
-                                      min: 0,
-                                      max: 100,
-                                      value: mainLightValue,
-                                      inactiveColor: const Color(0XFF393637),
-                                      thumbColor: const Color(0XFFF8F8F8),
-                                      onChanged: (value) {
-                                        setState(() {
-                                          mainLightValue = value;
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                ),
-                                Image.asset(
-                                  'assets/Lamp.png',
-                                  width: 24,
-                                  height: 24,
-                                ),
-                              ],
-                            )
-                          ],
+                        DeviceContainer(
+                          title: 'Humidifier',
+                          subtitle: 'Humidifier\nAir',
+                          imagePath: 'assets/humidity.png',
+                          isSwitchOn: isHumidifierOn,
+                          onSwitchChanged: (value) {
+                            setState(() {
+                              isHumidifierOn = value;
+                            });
+                          },
+                          switchLabel: 'Mode 2',
+                          value: 36,
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Floor lamp',
-                              style: primaryTextStyle,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: SliderTheme(
-                                    data: SliderTheme.of(context).copyWith(
-                                      trackHeight: 6,
-                                      activeTrackColor: const Color(0XFFFFB267),
-                                      thumbShape: const RoundSliderThumbShape(
-                                        enabledThumbRadius: 15,
-                                      ),
-                                      overlayShape:
-                                          const RoundSliderOverlayShape(
-                                        overlayRadius: 31,
-                                      ),
-                                      inactiveTrackColor:
-                                          const Color(0XFF393637),
-                                      overlayColor: const Color.fromRGBO(
-                                          107, 104, 105, 20),
-                                    ),
-                                    child: Slider(
-                                      min: 0,
-                                      max: 100,
-                                      value: floorLampValue,
-                                      inactiveColor: const Color(0XFF393637),
-                                      thumbColor: const Color(0XFFF8F8F8),
-                                      onChanged: (value) {
-                                        setState(() {
-                                          floorLampValue = value;
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                ),
-                                Image.asset(
-                                  'assets/Tablelamp.png',
-                                  width: 24,
-                                  height: 24,
-                                ),
-                              ],
-                            )
-                          ],
+                        DeviceContainer(
+                          title: 'Purifier',
+                          subtitle: 'Purifier\nAir',
+                          imagePath: 'assets/clean.png',
+                          isSwitchOn: isPurifierOn,
+                          onSwitchChanged: (value) {
+                            setState(() {
+                              isPurifierOn = value;
+                            });
+                          },
+                          switchLabel: 'On',
+                          value: 73,
                         ),
                       ],
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 12),
+                    Container(
+                      padding: const EdgeInsets.only(
+                        top: 20,
+                        right: 20,
+                        left: 20,
+                      ),
+                      height: MediaQuery.of(context).size.height / 5,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        color: const Color(0XFF282424),
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      child: Column(
+                        children: [
+                          SliderContainer(
+                            label: 'Main light',
+                            value: mainLightValue,
+                            onChanged: (value) {
+                              setState(() {
+                                mainLightValue = value;
+                              });
+                            },
+                            imagePath: 'assets/Lamp.png',
+                          ),
+                          SliderContainer(
+                            label: 'Floor lamp',
+                            value: floorLampValue,
+                            onChanged: (value) {
+                              setState(() {
+                                floorLampValue = value;
+                              });
+                            },
+                            imagePath: 'assets/Tablelamp.png',
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
