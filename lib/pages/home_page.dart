@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:smart_home/shared/theme.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  bool isHumidifierOn = false;
+  bool isPurifierOn = false;
+  double mainLightValue = 65;
+  double floorLampValue = 45;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,10 +89,14 @@ class HomePage extends StatelessWidget {
                                   style: primaryTextStyle,
                                 ),
                                 Switch(
-                                  value: true,
+                                  value: isHumidifierOn,
                                   activeColor: const Color(0XFF282424),
                                   activeTrackColor: const Color(0XFFFFB267),
-                                  onChanged: (value) {},
+                                  onChanged: (value) {
+                                    setState(() {
+                                      isHumidifierOn = value;
+                                    });
+                                  },
                                 )
                               ],
                             ),
@@ -142,10 +155,14 @@ class HomePage extends StatelessWidget {
                                   style: primaryTextStyle,
                                 ),
                                 Switch(
-                                  value: true,
+                                  value: isPurifierOn,
                                   activeColor: const Color(0XFF282424),
                                   activeTrackColor: const Color(0XFFFFB267),
-                                  onChanged: (value) {},
+                                  onChanged: (value) {
+                                    setState(() {
+                                      isPurifierOn = value;
+                                    });
+                                  },
                                 )
                               ],
                             ),
@@ -202,7 +219,11 @@ class HomePage extends StatelessWidget {
                                       value: 65,
                                       inactiveColor: const Color(0XFF393637),
                                       thumbColor: const Color(0XFFF8F8F8),
-                                      onChanged: (value) {},
+                                      onChanged: (value) {
+                                        setState(() {
+                                          mainLightValue = value;
+                                        });
+                                      },
                                     ),
                                   ),
                                 ),
@@ -248,7 +269,11 @@ class HomePage extends StatelessWidget {
                                       value: 45,
                                       inactiveColor: const Color(0XFF393637),
                                       thumbColor: const Color(0XFFF8F8F8),
-                                      onChanged: (value) {},
+                                      onChanged: (value) {
+                                        setState(() {
+                                          floorLampValue = value;
+                                        });
+                                      },
                                     ),
                                   ),
                                 ),
