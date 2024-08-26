@@ -216,7 +216,7 @@ class _HomePageState extends State<HomePage> {
                                     child: Slider(
                                       min: 0,
                                       max: 100,
-                                      value: 65,
+                                      value: mainLightValue,
                                       inactiveColor: const Color(0XFF393637),
                                       thumbColor: const Color(0XFFF8F8F8),
                                       onChanged: (value) {
@@ -266,7 +266,7 @@ class _HomePageState extends State<HomePage> {
                                     child: Slider(
                                       min: 0,
                                       max: 100,
-                                      value: 45,
+                                      value: floorLampValue,
                                       inactiveColor: const Color(0XFF393637),
                                       thumbColor: const Color(0XFFF8F8F8),
                                       onChanged: (value) {
@@ -319,31 +319,6 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-          ),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        elevation: 0,
-        backgroundColor: const Color(0XFF211D1D),
-        selectedItemColor: const Color(0XFFFFB267),
-        unselectedItemColor: const Color(0XFFF8F8F8),
-        showUnselectedLabels: false,
-        showSelectedLabels: false,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-              size: 24,
-            ),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.search,
-              size: 24,
-            ),
-            label: 'search',
           ),
         ],
       ),
