@@ -50,7 +50,9 @@ class _HomePageState extends State<HomePage> {
               opacity: opacity,
               duration: const Duration(seconds: 1),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 15,
+                ),
                 child: Column(
                   children: [
                     Row(
@@ -135,9 +137,8 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Icon(
-                  Icons.arrow_back_ios_new,
+                  Icons.arrow_back_ios,
                   color: Color(0XFFF8F8F8),
-                  size: 24,
                 ),
                 Text(
                   'Bedroom',
